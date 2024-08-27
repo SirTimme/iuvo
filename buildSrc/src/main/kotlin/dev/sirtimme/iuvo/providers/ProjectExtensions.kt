@@ -22,13 +22,14 @@ fun Project.getCommitShort(): String {
 }
 
 /**
- * Executes the provided [commands] on the commandline
+ * Executes the provided [executable] with its [arguments] on the commandline
  *
- * @param commands the command with its arguments comma-separated
+ * @param executable the program
+ * @param arguments additional arguments for the program
  * @return a [Provider] which contains the result of the command execution
  */
-fun Project.execute(vararg commands: String): Provider<String> {
+fun Project.execute(executable: String, vararg arguments: String): Provider<String> {
     return providers.of(GitValueProvider::class.java) {
-        parameters.commands.set(commands.toList())
+        parameters.commands.set(listOf(executable, *arguments))
     }
 }

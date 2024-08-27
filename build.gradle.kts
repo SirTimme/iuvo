@@ -1,5 +1,3 @@
-import dev.sirtimme.iuvo.providers.getCommitShort
-
 plugins {
     `java-library`
     `maven-publish`
@@ -17,13 +15,10 @@ dependencies {
         exclude(group = "club.minnced", module = "opus-java")
     }
     api("org.hibernate:hibernate-core:6.4.4.Final")
-
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-tasks.test {
-    useJUnitPlatform()
+java {
+    withSourcesJar()
 }
 
 publishing {
@@ -34,11 +29,6 @@ publishing {
             version = project.version as String
 
             from(components["java"])
-        }
-        create<MavenPublication>("beta") {
-            groupId = project.group as String
-            artifactId = project.name
-            version = "${project.version as String}-${getCommitShort()}"
         }
     }
 }

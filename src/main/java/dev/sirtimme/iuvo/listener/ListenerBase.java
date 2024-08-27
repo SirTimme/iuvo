@@ -6,11 +6,11 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class EventListenerBase<T extends GenericEvent> implements EventListener {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventListenerBase.class);
+public abstract class ListenerBase<T extends GenericEvent> implements EventListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListenerBase.class);
     private final Class<T> clazz;
 
-    protected EventListenerBase(final Class<T> clazz) {
+    protected ListenerBase(final Class<T> clazz) {
         this.clazz = clazz;
     }
 
@@ -19,9 +19,9 @@ public abstract class EventListenerBase<T extends GenericEvent> implements Event
         if (clazz.isInstance(genericEvent)) {
             LOGGER.debug("Received event with type {}", clazz.getSimpleName());
 
-            handleCommand(clazz.cast(genericEvent));
+            handleEvent(clazz.cast(genericEvent));
         }
     }
 
-    abstract void handleCommand(final T event);
+    public abstract void handleEvent(final T event);
 }

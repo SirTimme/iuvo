@@ -1,6 +1,6 @@
 package dev.sirtimme.iuvo.factory.interaction;
 
-import dev.sirtimme.iuvo.commands.IInteractionCommand;
+import dev.sirtimme.iuvo.commands.interaction.IInteractionCommand;
 import jakarta.persistence.EntityManager;
 import net.dv8tion.jda.api.events.interaction.GenericInteractionCreateEvent;
 

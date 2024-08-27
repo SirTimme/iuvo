@@ -14,5 +14,5 @@ public interface IPreconditionHolder<T extends GenericInteractionCreateEvent> {
         return false;
     }
 
-    List<IPrecondition<T>> getPreconditions();
+    List<IPrecondition<? super T>> getPreconditions();
 }
