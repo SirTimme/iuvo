@@ -4,15 +4,6 @@ import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 
 /**
- * Returns the name of the current git branch
- *
- * @return the name of the current git branch
- */
-fun Project.currentBranch(): String {
-    return execute("git", "rev-parse", "--abbrev-ref", "HEAD").get()
-}
-
-/**
  * Returns the most recent commit hash in short form
  *
  * @return the 7-char commit hash
