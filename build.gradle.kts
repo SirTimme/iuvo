@@ -27,8 +27,7 @@ publishing {
     repositories {
         maven {
             name = "release"
-            url = uri("http://192.168.0.227:8082/releases")
-            isAllowInsecureProtocol = true
+            url = uri("https://patient-turkey-beloved.ngrok-free.app/releases")
             credentials(PasswordCredentials::class)
             authentication {
                 create<BasicAuthentication>("basic")
@@ -36,8 +35,7 @@ publishing {
         }
         maven {
             name = "snapshot"
-            url = uri("http://192.168.0.227:8082/snapshots")
-            isAllowInsecureProtocol = true
+            url = uri("https://patient-turkey-beloved.ngrok-free.app/snapshots")
             credentials(PasswordCredentials::class)
             authentication {
                 create<BasicAuthentication>("basic")
