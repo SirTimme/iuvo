@@ -3,6 +3,7 @@ package dev.sirtimme.iuvo.api.precondition;
 import dev.sirtimme.iuvo.api.entity.IEntity;
 import dev.sirtimme.iuvo.api.repository.Repository;
 import dev.sirtimme.iuvo.internal.precondition.IsComponentAuthor;
+import dev.sirtimme.iuvo.internal.precondition.IsOwner;
 import dev.sirtimme.iuvo.internal.precondition.IsRegistered;
 import net.dv8tion.jda.api.events.interaction.GenericInteractionCreateEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -17,5 +18,9 @@ public interface IPrecondition<T extends GenericInteractionCreateEvent> {
 
     static IPrecondition<GenericComponentInteractionCreateEvent> isComponentAuthor() {
         return new IsComponentAuthor();
+    }
+
+    static IPrecondition<SlashCommandInteractionEvent> isOwner() {
+        return new IsOwner();
     }
 }
