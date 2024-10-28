@@ -22,7 +22,6 @@ public class InteractionListener<T extends GenericInteractionCreateEvent> extend
     public void handleEvent(final T event) {
         final var context = entityManagerFactory.createEntityManager();
         final var command = commandFactory.createCommand(event, context);
-        final var locale = event.getGuildLocale().toLocale();
 
         if (command.hasInvalidPreconditions(event)) {
             return;
@@ -30,7 +29,7 @@ public class InteractionListener<T extends GenericInteractionCreateEvent> extend
 
         try {
             context.getTransaction().begin();
-            command.execute(event, locale);
+            command.execute(event);
             context.getTransaction().commit();
         } catch (Exception error) {
             LOGGER.error("Execution of command {} failed: {}", command, error.getMessage());
