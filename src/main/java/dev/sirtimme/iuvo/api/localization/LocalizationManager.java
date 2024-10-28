@@ -5,29 +5,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class LocalizationManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(LocalizationManager.class);
-    private static final Map<DiscordLocale, ResourceBundle> internalBundles = new HashMap<>();
-    private static final Map<DiscordLocale, ResourceBundle> userBundles = new HashMap<>();
+    private static final Map<DiscordLocale, ResourceBundle> bundles = new HashMap<>();
 
     public static void addBundles(final String baseName, final DiscordLocale... discordLocales) {
         for (final var discordLocale : discordLocales) {
             final var locale = discordLocale.toLocale();
             try {
-                // add user-defined bundles
                 final var userBundle = ResourceBundle.getBundle(baseName, locale);
-                userBundles.put(discordLocale, userBundle);
+                bundles.put(discordLocale, userBundle);
 
-                // add iuvo-internal bundles
-                final var iuvoBundle = ResourceBundle.getBundle("localization/iuvo", locale);
-                internalBundles.put(discordLocale, iuvoBundle);
-
-                LOGGER.info("Loaded bundles for locale '{}'", locale);
+                LOGGER.info("Loaded bundle for locale '{}'", locale);
             } catch (final MissingResourceException error) {
                 LOGGER.warn("Loading of bundles for locale '{}' failed: {}", locale, error.getMessage());
             }
@@ -42,9 +33,12 @@ public class LocalizationManager {
     }
 
     private static ResourceBundle getBundle(final String key, final DiscordLocale locale) {
-        if (key.startsWith("iuvo")) {
-            return internalBundles.get(locale);
+        final var bundle = bundles.get(locale);
+
+        if (bundle == null) {
+            return bundles.get(DiscordLocale.ENGLISH_US);
         }
-        return userBundles.get(locale);
+
+        return bundle;
     }
 }
