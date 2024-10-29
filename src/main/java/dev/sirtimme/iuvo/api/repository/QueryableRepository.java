@@ -12,5 +12,5 @@ public abstract class QueryableRepository<T extends IEntity> extends Repository<
 
     public abstract List<T> findAll(final long id);
 
-    public abstract void deleteAll(final long id);
+    public abstract int deleteAll(final long id);
 }
