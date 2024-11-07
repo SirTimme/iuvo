@@ -14,20 +14,20 @@ public class MultiResourceBundle extends ResourceBundle {
     @Override
     protected Object handleGetObject(@NotNull final String key) {
         return bundles
-            .stream()
-            .filter(bundle -> bundle.containsKey(key))
-            .map(bundle -> bundle.getObject(key))
-            .findFirst()
-            .orElse(null);
+                .stream()
+                .filter(bundle -> bundle.containsKey(key))
+                .map(bundle -> bundle.getObject(key))
+                .findFirst()
+                .orElse(null);
     }
 
     @NotNull
     @Override
     public Enumeration<String> getKeys() {
         final var keys = bundles
-            .stream()
-            .flatMap(bundle -> Collections.list(bundle.getKeys()).stream())
-            .toList();
+                .stream()
+                .flatMap(bundle -> Collections.list(bundle.getKeys()).stream())
+                .toList();
 
         return Collections.enumeration(keys);
     }
