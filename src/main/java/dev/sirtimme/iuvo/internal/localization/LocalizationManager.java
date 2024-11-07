@@ -26,12 +26,12 @@ public class LocalizationManager {
         for (final var discordLocale : discordLocales) {
             final var locale = discordLocale.toLocale();
             try {
-                final var userBundle = ResourceBundle.getBundle("localization/responses", locale);
-                bundles.put(discordLocale, userBundle);
+                final var resourceBundle = ResourceBundle.getBundle("localization/responses", locale);
+                bundles.put(discordLocale, resourceBundle);
 
                 LOGGER.info("Loaded bundle for locale '{}'", locale);
             } catch (final MissingResourceException error) {
-                LOGGER.warn("Loading of bundles for locale '{}' failed: {}", locale, error.getMessage());
+                LOGGER.error("Loading the bundle for locale '{}' failed: {}", locale, error.getMessage());
             }
         }
     }
