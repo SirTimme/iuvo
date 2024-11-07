@@ -9,7 +9,7 @@ public class IsOwner implements IPrecondition<SlashCommandInteractionEvent> {
     @Override
     public boolean isValid(SlashCommandInteractionEvent event) {
         if (!event.getUser().getId().equals(System.getenv("OWNER_ID"))) {
-            event.reply(getResponse("iuvo.precondition.notOwner.invalid", event.getUserLocale())).setEphemeral(true).queue();
+            event.reply(getResponse("iuvo.precondition.isOwner.invalid", event.getUserLocale())).setEphemeral(true).queue();
             return false;
         }
 

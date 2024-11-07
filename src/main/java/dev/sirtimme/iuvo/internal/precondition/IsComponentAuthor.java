@@ -11,7 +11,7 @@ public class IsComponentAuthor implements IPrecondition<GenericComponentInteract
         final var authorId = event.getComponentId().split(":")[0];
 
         if (!event.getUser().getId().equals(authorId)) {
-            event.reply(getResponse("iuvo.precondition.notComponentAuthor.invalid", event.getUserLocale())).setEphemeral(true).queue();
+            event.reply(getResponse("iuvo.precondition.isComponentAuthor.invalid", event.getUserLocale())).setEphemeral(true).queue();
             return false;
         }
 

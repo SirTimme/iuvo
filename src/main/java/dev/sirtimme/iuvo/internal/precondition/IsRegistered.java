@@ -19,7 +19,7 @@ public class IsRegistered implements IPrecondition<SlashCommandInteractionEvent>
         final var user = repository.get(event.getUser().getIdLong());
 
         if (user == null) {
-            event.reply(getResponse("iuvo.precondition.notRegistered.invalid", event.getUserLocale())).queue();
+            event.reply(getResponse("iuvo.precondition.isRegistered.invalid", event.getUserLocale())).queue();
             return false;
         }
 
