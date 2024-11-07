@@ -60,13 +60,16 @@ publishing {
     }
 }
 
+fun PublishToMavenRepository.isRepository(repositoryName: String): Boolean {
+    return repository == publishing.repositories[repositoryName]
+}
+
+fun PublishToMavenRepository.isPublication(publicationName: String): Boolean {
+    return publication == publishing.publications[publicationName]
+}
+
 tasks.withType<PublishToMavenRepository>().configureEach {
-    val predicate = provider {
-        (repository == publishing.repositories["release"] && publication == publishing.publications["release"])
-        ||
-        (repository == publishing.repositories["snapshot"] && publication == publishing.publications["snapshot"])
-    }
-    onlyIf("publishing 'release' to 'release' repository, or 'snapshot' to 'snapshot' repository") {
-        predicate.get()
+    onlyIf("publish 'release' to 'release' repository or 'snapshot' to 'snapshot' repository") {
+        (isRepository("release") && isPublication("release")) || (isRepository("snapshot") && isPublication("snapshot"))
     }
 }
