@@ -29,7 +29,7 @@ public class LocalizationManager {
         for (final var discordLocale : discordLocales) {
             final var locale = discordLocale.toLocale();
             try {
-                final var responseBundle = ResourceBundle.getBundle("localization/responses", locale);
+                final var responseBundle = ResourceBundle.getBundle("iuvo/responses", locale);
                 final var combinedBundle = new MultiResourceBundle(responseBundle);
 
                 bundles.put(discordLocale, combinedBundle);
