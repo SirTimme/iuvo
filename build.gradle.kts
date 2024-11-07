@@ -73,3 +73,7 @@ tasks.withType<PublishToMavenRepository>().configureEach {
         (isRepository("release") && isPublication("release")) || (isRepository("snapshot") && isPublication("snapshot"))
     }
 }
+
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.add("--enable-preview")
+}
