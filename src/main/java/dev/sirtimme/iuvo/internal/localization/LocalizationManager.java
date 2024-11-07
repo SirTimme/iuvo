@@ -7,7 +7,7 @@ import static dev.sirtimme.iuvo.api.listener.interaction.InteractionListener.USE
 
 public class LocalizationManager {
     public static String getResponse(final String key, final Object... values) {
-        final var bundle = ResourceBundle.getBundle("localization/iuvo", USER_LOCALE.get().toLocale());
+        final var bundle = ResourceBundle.getBundle("localization/iuvo", USER_LOCALE.get());
         final var template = new MessageFormat(bundle.getString(key));
 
         return template.format(values);
