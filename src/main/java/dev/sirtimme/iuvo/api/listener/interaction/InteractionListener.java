@@ -23,10 +23,10 @@ public class InteractionListener<T extends GenericInteractionCreateEvent> extend
 
     @Override
     public void handleEvent(final T event) {
-        final var context = entityManagerFactory.createEntityManager();
-        final var command = commandFactory.createCommand(event, context);
-
         ScopedValue.where(USER_LOCALE, event.getUserLocale().toLocale()).run(() -> {
+            final var context = entityManagerFactory.createEntityManager();
+            final var command = commandFactory.createCommand(event, context);
+
             if (command.hasInvalidPreconditions(event)) {
                 return;
             }
