@@ -10,10 +10,11 @@ import org.slf4j.LoggerFactory;
 import java.util.Locale;
 
 public class InteractionListener<T extends GenericInteractionCreateEvent> extends ListenerBase<T> {
-    public final static ScopedValue<Locale> USER_LOCALE = ScopedValue.newInstance();
     private static final Logger LOGGER = LoggerFactory.getLogger(InteractionListener.class);
     private final EntityManagerFactory entityManagerFactory;
     private final IInteractionCommandFactory<T> commandFactory;
+
+    public final static ScopedValue<Locale> USER_LOCALE = ScopedValue.newInstance();
 
     public InteractionListener(final Class<T> clazz, final EntityManagerFactory entityManagerFactory, final IInteractionCommandFactory<T> commandFactory) {
         super(clazz);
@@ -36,7 +37,7 @@ public class InteractionListener<T extends GenericInteractionCreateEvent> extend
                 command.execute(event);
                 context.getTransaction().commit();
             } catch (Exception error) {
-                LOGGER.error("Execution of command {} failed: {}", command, error.getMessage());
+                LOGGER.error("Execution of command '{}' failed: '{}'", command, error.getMessage());
                 context.getTransaction().rollback();
             } finally {
                 context.close();

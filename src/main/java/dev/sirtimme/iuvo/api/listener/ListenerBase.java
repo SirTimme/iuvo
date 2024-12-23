@@ -17,7 +17,7 @@ public abstract class ListenerBase<T extends GenericEvent> implements EventListe
     @Override
     public void onEvent(@NotNull final GenericEvent genericEvent) {
         if (clazz.isInstance(genericEvent)) {
-            LOGGER.debug("Received event with type {}", clazz.getSimpleName());
+            LOGGER.debug("Received event with type '{}'", clazz.getSimpleName());
 
             handleEvent(clazz.cast(genericEvent));
         }
