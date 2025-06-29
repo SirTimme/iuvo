@@ -18,3 +18,22 @@ dependencies {
     api("org.hibernate:hibernate-core:7.0.3.Final")
     api("io.github.classgraph:classgraph:4.8.180")
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = project.group as String
+            artifactId = project.name
+            version = project.version as String
+
+            from(components["java"])
+        }
+        create<MavenPublication>("snapshot") {
+            groupId = project.group as String
+            artifactId = project.name
+            version = "${project.version}-SNAPSHOT"
+
+            from(components["java"])
+        }
+    }
+}
