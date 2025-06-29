@@ -1,4 +1,4 @@
-package dev.sirtimme.iuvo.providers
+package dev.sirtimme.providers
 
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.ValueSource
