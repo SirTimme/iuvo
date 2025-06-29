@@ -24,24 +24,27 @@ public class InteractionListener<T extends GenericInteractionCreateEvent> extend
 
     @Override
     public void handleEvent(final T event) {
-        ScopedValue.where(USER_LOCALE, event.getUserLocale().toLocale()).run(() -> {
-            final var context = entityManagerFactory.createEntityManager();
-            final var command = commandFactory.createCommand(event, context);
+        final Runnable eventHandler = () -> {
+            try (var context = entityManagerFactory.createEntityManager()) {
+                final var command = commandFactory.createCommand(event, context);
 
-            if (command.hasInvalidPreconditions(event)) {
-                return;
-            }
+                if (command.hasInvalidPreconditions(event)) {
+                    return;
+                }
 
-            try {
-                context.getTransaction().begin();
-                command.execute(event);
-                context.getTransaction().commit();
-            } catch (Exception error) {
-                LOGGER.error("Execution of command '{}' failed: '{}'", command, error.getMessage());
-                context.getTransaction().rollback();
-            } finally {
-                context.close();
+                final var transaction = context.getTransaction();
+
+                try {
+                    transaction.begin();
+                    command.execute(event);
+                    transaction.commit();
+                } catch (Exception error) {
+                    transaction.rollback();
+                    LOGGER.error("Executing command '{}' failed: {}", command, error.getMessage());
+                }
             }
-        });
+        };
+
+        ScopedValue.where(USER_LOCALE, event.getUserLocale().toLocale()).run(eventHandler);
     }
 }
