@@ -47,7 +47,7 @@ publishing {
     repositories {
         maven {
             name = "release"
-            url = uri("https://patient-turkey-beloved.ngrok-free.app/releases")
+            url = uri("https://artifactory.sirtimme.dev/releases")
             credentials(PasswordCredentials::class)
             authentication {
                 create<BasicAuthentication>("basic")
@@ -55,7 +55,7 @@ publishing {
         }
         maven {
             name = "snapshot"
-            url = uri("https://patient-turkey-beloved.ngrok-free.app/snapshots")
+            url = uri("https://artifactory.sirtimme.dev/snapshots")
             credentials(PasswordCredentials::class)
             authentication {
                 create<BasicAuthentication>("basic")
