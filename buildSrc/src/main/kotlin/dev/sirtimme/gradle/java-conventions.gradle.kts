@@ -5,9 +5,7 @@ plugins {
 }
 
 java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
     withSourcesJar()
-}
-
-tasks.withType<JavaCompile>().configureEach {
-    options.compilerArgs.add("--enable-preview")
 }
