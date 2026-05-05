@@ -12,11 +12,11 @@ repositories {
 }
 
 dependencies {
-    api("net.dv8tion:JDA:5.6.1") {
+    api("net.dv8tion:JDA:6.4.1") {
         exclude(group = "club.minnced", module = "opus-java")
     }
-    api("org.hibernate:hibernate-core:7.0.3.Final")
-    api("io.github.classgraph:classgraph:4.8.180")
+    api("org.hibernate:hibernate-core:7.3.3.Final")
+    api("io.github.classgraph:classgraph:4.8.184")
 }
 
 publishing {
