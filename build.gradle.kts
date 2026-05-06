@@ -21,7 +21,7 @@ dependencies {
 
 publishing {
     publications {
-        register<MavenPublication>("release") {
+        register<MavenPublication>("maven") {
             from(components["java"])
 
             artifactId = project.name
@@ -55,13 +55,17 @@ publishing {
     }
     repositories {
         maven {
-            val releaseUrl = uri("https://artifactory.sirtimme.dev/releases")
-            val snapshotUrl = uri("https://artifactory.sirtimme.dev/snapshots")
+            name = "Forgejo"
+            url = uri("https://forgejo.sirtimme.dev/api/packages/sirtimme/maven")
 
-            name = "artifactory"
-            url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshotUrl else releaseUrl)
+            credentials(HttpHeaderCredentials::class) {
+                name = "Authorization"
+                value = "Bearer ${System.getenv("FORGEJO_ACCESS_TOKEN")}"
+            }
 
-            credentials(PasswordCredentials::class)
+            authentication {
+                create<HttpHeaderAuthentication>("header")
+            }
         }
     }
 }
